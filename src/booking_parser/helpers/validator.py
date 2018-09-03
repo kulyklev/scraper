@@ -43,17 +43,5 @@ class Validator:
         else:
             return False
 
-    # Check spelling of python word
-    def validate_python(self, python_str):
-        if python_str == "python":
-            return True
-        else:
-            print("Incorrect spelling of 'python'")
-            return False
-
-    def validate_script_name(self, script_name):
-        if script_name == "runner.py":
-            return True
-        else:
-            print("Script name - 'runner.py'")
-            return False
+    # def validate_args(self, args):
+    #     if args.
