@@ -42,6 +42,3 @@ class Validator:
             return True
         else:
             return False
-
-    def validate_args(self, args):
-        return True

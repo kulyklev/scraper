@@ -19,16 +19,14 @@ for line in sys.stdin:
         command = line.split(" ")
 
         is_valid_dates = False
-        is_valid_args = False
 
         try:
             arguments = command[4:]
             is_valid_dates = validator.validate_input(checkin_date=command[2], checkout_date=command[3])
-            is_valid_args = validator.validate_args(arguments)
         except IndexError:
             print("To few arguments")
 
-        if is_valid_dates: #and is_valid_args:
+        if is_valid_dates:
             commands.append(command)
             print("OK")
         else:
@@ -37,7 +35,5 @@ for line in sys.stdin:
     else:
         break
 
-
-# TODO Create loop to loop through array of commands and start subprocesses
-for com in commands:
-    sp = subprocess.Popen(["python", "runner.py"] + com)
+for comm in commands:
+    sp = subprocess.Popen(["python", "runner.py"] + comm)
