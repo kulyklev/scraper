@@ -98,3 +98,133 @@ Traceback (most recent call last):
     bytes = self._tlsConnection.bio_read(2 ** 15)
 builtins.AttributeError: 'NoneType' object has no attribute 'bio_read'
 
+2018-09-04 10:00:55 [booking] Level 45: {'start_time': datetime.datetime(2018, 9, 4, 7, 0, 44, 596207), 'scheduler/enqueued/memory': 11, 'scheduler/enqueued': 11, 'scheduler/dequeued/memory': 11, 'scheduler/dequeued': 11, 'downloader/request_count': 51, 'downloader/request_method_count/GET': 51, 'downloader/request_bytes': 25451, 'downloader/response_count': 51, 'downloader/response_status_count/200': 51, 'downloader/response_bytes': 4391596, 'response_received_count': 51, 'request_depth_max': 1, 'file_count': 40, 'file_status_count/downloaded': 40, 'item_scraped_count': 10, 'log_count/Level 45': 1}
+2018-09-04 10:00:57 [twisted] CRITICAL: Unhandled Error
+Traceback (most recent call last):
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\python\log.py", line 103, in callWithLogger
+    return callWithContext({"system": lp}, func, *args, **kw)
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\python\log.py", line 86, in callWithContext
+    return context.call({ILogContext: newCtx}, func, *args, **kw)
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\python\context.py", line 122, in callWithContext
+    return self.currentContext().callWithContext(ctx, func, *args, **kw)
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\python\context.py", line 85, in callWithContext
+    return func(*args,**kw)
+--- <exception caught here> ---
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\internet\selectreactor.py", line 149, in _doReadOrWrite
+    why = getattr(selectable, method)()
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\internet\tcp.py", line 243, in doRead
+    return self._dataReceived(data)
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\internet\tcp.py", line 249, in _dataReceived
+    rval = self.protocol.dataReceived(data)
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\protocols\tls.py", line 330, in dataReceived
+    self._flushReceiveBIO()
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\protocols\tls.py", line 300, in _flushReceiveBIO
+    self._flushSendBIO()
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\protocols\tls.py", line 252, in _flushSendBIO
+    bytes = self._tlsConnection.bio_read(2 ** 15)
+builtins.AttributeError: 'NoneType' object has no attribute 'bio_read'
+
+2018-09-04 10:07:34 [booking] Level 45: {'start_time': datetime.datetime(2018, 9, 4, 7, 7, 32, 615630), 'scheduler/enqueued/memory': 1, 'scheduler/enqueued': 1, 'scheduler/dequeued/memory': 1, 'scheduler/dequeued': 1, 'downloader/request_count': 1, 'downloader/request_method_count/GET': 1, 'downloader/request_bytes': 674, 'downloader/response_count': 1, 'downloader/response_status_count/200': 1, 'downloader/response_bytes': 139722, 'response_received_count': 1, 'log_count/Level 45': 1}
+2018-09-04 10:07:35 [twisted] CRITICAL: Unhandled Error
+Traceback (most recent call last):
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\python\log.py", line 103, in callWithLogger
+    return callWithContext({"system": lp}, func, *args, **kw)
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\python\log.py", line 86, in callWithContext
+    return context.call({ILogContext: newCtx}, func, *args, **kw)
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\python\context.py", line 122, in callWithContext
+    return self.currentContext().callWithContext(ctx, func, *args, **kw)
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\python\context.py", line 85, in callWithContext
+    return func(*args,**kw)
+--- <exception caught here> ---
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\internet\selectreactor.py", line 149, in _doReadOrWrite
+    why = getattr(selectable, method)()
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\internet\tcp.py", line 243, in doRead
+    return self._dataReceived(data)
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\internet\tcp.py", line 249, in _dataReceived
+    rval = self.protocol.dataReceived(data)
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\protocols\tls.py", line 330, in dataReceived
+    self._flushReceiveBIO()
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\protocols\tls.py", line 300, in _flushReceiveBIO
+    self._flushSendBIO()
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\protocols\tls.py", line 252, in _flushSendBIO
+    bytes = self._tlsConnection.bio_read(2 ** 15)
+builtins.AttributeError: 'NoneType' object has no attribute 'bio_read'
+
+2018-09-04 10:08:35 [booking] Level 45: {'start_time': datetime.datetime(2018, 9, 4, 7, 7, 32, 615630), 'scheduler/enqueued/memory': 121, 'scheduler/enqueued': 121, 'scheduler/dequeued/memory': 121, 'scheduler/dequeued': 121, 'downloader/request_count': 326, 'downloader/request_method_count/GET': 326, 'downloader/request_bytes': 264931, 'downloader/response_count': 326, 'downloader/response_status_count/200': 326, 'downloader/response_bytes': 33576163, 'response_received_count': 326, 'request_depth_max': 13, 'file_count': 205, 'file_status_count/downloaded': 205, 'item_scraped_count': 108, 'log_count/Level 45': 1}
+2018-09-04 10:08:36 [twisted] CRITICAL: Unhandled Error
+Traceback (most recent call last):
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\python\log.py", line 103, in callWithLogger
+    return callWithContext({"system": lp}, func, *args, **kw)
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\python\log.py", line 86, in callWithContext
+    return context.call({ILogContext: newCtx}, func, *args, **kw)
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\python\context.py", line 122, in callWithContext
+    return self.currentContext().callWithContext(ctx, func, *args, **kw)
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\python\context.py", line 85, in callWithContext
+    return func(*args,**kw)
+--- <exception caught here> ---
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\internet\selectreactor.py", line 149, in _doReadOrWrite
+    why = getattr(selectable, method)()
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\internet\tcp.py", line 243, in doRead
+    return self._dataReceived(data)
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\internet\tcp.py", line 249, in _dataReceived
+    rval = self.protocol.dataReceived(data)
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\protocols\tls.py", line 330, in dataReceived
+    self._flushReceiveBIO()
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\protocols\tls.py", line 300, in _flushReceiveBIO
+    self._flushSendBIO()
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\protocols\tls.py", line 252, in _flushSendBIO
+    bytes = self._tlsConnection.bio_read(2 ** 15)
+builtins.AttributeError: 'NoneType' object has no attribute 'bio_read'
+
+2018-09-04 10:11:10 [booking] Level 45: {'start_time': datetime.datetime(2018, 9, 4, 7, 11, 0, 120373), 'scheduler/enqueued/memory': 11, 'scheduler/enqueued': 11, 'scheduler/dequeued/memory': 11, 'scheduler/dequeued': 11, 'downloader/request_count': 51, 'downloader/request_method_count/GET': 51, 'downloader/request_bytes': 25231, 'downloader/response_count': 51, 'downloader/response_status_count/200': 51, 'downloader/response_bytes': 4398966, 'response_received_count': 51, 'request_depth_max': 1, 'file_count': 40, 'file_status_count/downloaded': 40, 'item_scraped_count': 10, 'log_count/Level 45': 1}
+2018-09-04 10:11:12 [twisted] CRITICAL: Unhandled Error
+Traceback (most recent call last):
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\python\log.py", line 103, in callWithLogger
+    return callWithContext({"system": lp}, func, *args, **kw)
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\python\log.py", line 86, in callWithContext
+    return context.call({ILogContext: newCtx}, func, *args, **kw)
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\python\context.py", line 122, in callWithContext
+    return self.currentContext().callWithContext(ctx, func, *args, **kw)
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\python\context.py", line 85, in callWithContext
+    return func(*args,**kw)
+--- <exception caught here> ---
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\internet\selectreactor.py", line 149, in _doReadOrWrite
+    why = getattr(selectable, method)()
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\internet\tcp.py", line 243, in doRead
+    return self._dataReceived(data)
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\internet\tcp.py", line 249, in _dataReceived
+    rval = self.protocol.dataReceived(data)
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\protocols\tls.py", line 330, in dataReceived
+    self._flushReceiveBIO()
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\protocols\tls.py", line 300, in _flushReceiveBIO
+    self._flushSendBIO()
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\protocols\tls.py", line 252, in _flushSendBIO
+    bytes = self._tlsConnection.bio_read(2 ** 15)
+builtins.AttributeError: 'NoneType' object has no attribute 'bio_read'
+
+2018-09-04 10:12:04 [booking] Level 45: {'start_time': datetime.datetime(2018, 9, 4, 7, 11, 0, 151625), 'scheduler/enqueued/memory': 122, 'scheduler/enqueued': 122, 'scheduler/dequeued/memory': 122, 'scheduler/dequeued': 122, 'downloader/request_count': 340, 'downloader/request_method_count/GET': 340, 'downloader/request_bytes': 269986, 'downloader/response_count': 340, 'downloader/response_status_count/200': 340, 'downloader/response_bytes': 34643037, 'response_received_count': 340, 'request_depth_max': 13, 'file_count': 218, 'file_status_count/downloaded': 218, 'item_scraped_count': 109, 'log_count/Level 45': 1}
+2018-09-04 10:12:05 [twisted] CRITICAL: Unhandled Error
+Traceback (most recent call last):
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\python\log.py", line 103, in callWithLogger
+    return callWithContext({"system": lp}, func, *args, **kw)
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\python\log.py", line 86, in callWithContext
+    return context.call({ILogContext: newCtx}, func, *args, **kw)
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\python\context.py", line 122, in callWithContext
+    return self.currentContext().callWithContext(ctx, func, *args, **kw)
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\python\context.py", line 85, in callWithContext
+    return func(*args,**kw)
+--- <exception caught here> ---
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\internet\selectreactor.py", line 149, in _doReadOrWrite
+    why = getattr(selectable, method)()
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\internet\tcp.py", line 243, in doRead
+    return self._dataReceived(data)
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\internet\tcp.py", line 249, in _dataReceived
+    rval = self.protocol.dataReceived(data)
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\protocols\tls.py", line 330, in dataReceived
+    self._flushReceiveBIO()
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\protocols\tls.py", line 300, in _flushReceiveBIO
+    self._flushSendBIO()
+  File "C:\Users\kulik_li\.virtualenvs\scraping-management-SOykYk2W\lib\site-packages\twisted\protocols\tls.py", line 252, in _flushSendBIO
+    bytes = self._tlsConnection.bio_read(2 ** 15)
+builtins.AttributeError: 'NoneType' object has no attribute 'bio_read'
+
