@@ -1,39 +1,47 @@
 import subprocess
 import sys
+import time
 import argparse
 from helpers.validator import Validator
+from concurrent.futures import ThreadPoolExecutor
 
 
-parser = argparse.ArgumentParser(description="Runs 'booking-scraper' commands.")
-args = parser.parse_args()
+def run_spider(command):
+    sp = subprocess.Popen(["python", "runner.py"] + command)
+    sp.wait()
 
-print("Enter <country>, <city>, <checkin_date>, <checkout_date> and press 'Enter'\n"
-      "To finish input enter blank line.")
 
-validator = Validator()
-commands = []
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Runs 'booking-scraper' commands.")
+    args = parser.parse_args()
 
-for line in sys.stdin:
-    if len(line) is not 1:
-        line = line .strip()
-        command = line.split(" ")
+    print("Enter <country>, <city>, <checkin_date>, <checkout_date> and press 'Enter'\n"
+          "To finish input enter blank line.")
 
-        is_valid_dates = False
+    validator = Validator()
+    commands = []
 
-        try:
-            arguments = command[4:]
-            is_valid_dates = validator.validate_input(checkin_date=command[2], checkout_date=command[3])
-        except IndexError:
-            print("To few arguments")
+    for line in sys.stdin:
+        if len(line) is not 1:
+            line = line .strip()
+            command = line.split(" ")
 
-        if is_valid_dates:
-            commands.append(command)
-            print("OK")
+            is_valid_dates = False
+
+            try:
+                # arguments = command[4:]
+                is_valid_dates = validator.validate_input(checkin_date=command[2], checkout_date=command[3])
+            except IndexError:
+                print("To few arguments")
+
+            if is_valid_dates:
+                commands.append(command)
+            else:
+                print("Command must be: <country> <city> <check_in_date> <check_out_date>")
+
         else:
-            print("Command must be: <country> <city> <check_in_date> <check_out_date>")
+            break
 
-    else:
-        break
-
-for comm in commands:
-    sp = subprocess.Popen(["python", "runner.py"] + comm)
+    with ThreadPoolExecutor(max_workers=3) as executor:
+        for cmd in commands:
+            executor.submit(run_spider, cmd)
