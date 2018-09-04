@@ -4,6 +4,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
 from scrapy.utils.project import get_project_settings
+from models.start_config import StartConfig
 
 
 class DBHelper:
@@ -35,3 +36,12 @@ class DBHelper:
         except SQLAlchemyError as error:
             self.session.rollback()
             logging.error(error)
+
+    def select_run_configs(self):
+        res = None
+        try:
+            res = self.session.query(StartConfig)
+        except SQLAlchemyError as error:
+            self.session.rollback()
+            logging.error(error)
+        return res
