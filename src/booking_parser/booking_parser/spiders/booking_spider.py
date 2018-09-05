@@ -72,7 +72,7 @@ class BookingSpider(CrawlSpider, DBHelper):
     def parse_hotel(self, response):
         hotel = HotelItem()
         hotel['hotel_id'] = response.xpath("//form[@id='top-book']/input[@name='hotel_id']/@value").extract_first()
-        hotel['url'] = response.url
+        hotel['url'] = response.url[:response.url.find('?')]
         hotel['name'] = response.xpath("//h2[@class='hp__hotel-name']/text()").extract_first().strip()
         hotel['description'] = " ".join(response.xpath("//div[@id='summary']/p/text()").extract()).strip()
         hotel['address'] = response.xpath(
