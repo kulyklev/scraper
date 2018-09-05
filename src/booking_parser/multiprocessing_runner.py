@@ -1,14 +1,9 @@
 import json
 import subprocess
-import sys
-import time
 import argparse
 import random
-from helpers.validator import Validator
 from concurrent.futures import ThreadPoolExecutor
 from helpers.db_helper import DBHelper
-from models.start_config import StartConfig
-from datetime import datetime
 
 
 def run_spider(command):
@@ -51,7 +46,7 @@ if __name__ == "__main__":
         }
         commands.append(d)
 
-    with ThreadPoolExecutor(max_workers=3) as executor:
+    with ThreadPoolExecutor(max_workers=args.processes) as executor:
         executor.submit(run_spider, commands)
         # for cmd in commands:
         #     executor.submit(run_spider, cmd)

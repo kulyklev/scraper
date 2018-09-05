@@ -3,8 +3,6 @@ import json
 import os
 from scrapy.crawler import CrawlerProcess, CrawlerRunner
 from scrapy.utils.project import get_project_settings
-from booking_parser.spiders.booking_spider import BookingSpider
-from twisted.internet import reactor, defer
 
 
 parser = argparse.ArgumentParser()
