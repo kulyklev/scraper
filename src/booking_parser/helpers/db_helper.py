@@ -3,6 +3,7 @@ import logging
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
+from sqlalchemy.orm import load_only
 from scrapy.utils.project import get_project_settings
 from models.start_config import StartConfig
 
@@ -40,7 +41,16 @@ class DBHelper:
     def select_run_configs(self):
         res = None
         try:
-            res = self.session.query(StartConfig)
+            res = self.session.query(StartConfig).all()
+        except SQLAlchemyError as error:
+            self.session.rollback()
+            logging.error(error)
+        return res
+
+    def select_spider_state(self, spider_id):
+        res = None
+        try:
+            res = self.session.query(StartConfig).filter(StartConfig.id == spider_id).options(load_only("state")).first()
         except SQLAlchemyError as error:
             self.session.rollback()
             logging.error(error)

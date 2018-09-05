@@ -15,3 +15,4 @@ class StartConfig(Base):
     checkout_date = Column('checkout_date', String(64))
     vpn = Column('vpn', Boolean, default=False)
     concurrent_request_amount = Column('concurrent_request_amount', SmallInteger)
+    state = Column('state', SmallInteger, comment='1 - pause, 2 - stop, other values - run', default=0)

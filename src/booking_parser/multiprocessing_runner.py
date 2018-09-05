@@ -35,7 +35,7 @@ if __name__ == "__main__":
 
     commands = []
     db = DBHelper()
-    start_configs = db.select_run_configs().all()
+    start_configs = db.select_run_configs()
     for conf in start_configs:
         c_in = conf.checkin_date
         c_out = conf.checkout_date
