@@ -57,6 +57,5 @@ if __name__ == "__main__":
     commands_per_process = chunks(commands, 2)
 
     with ThreadPoolExecutor(max_workers=args.processes) as executor:
-        # executor.submit(run_spider, commands)
         for cmd in commands_per_process:
             executor.submit(run_spider, cmd)
