@@ -1,12 +1,16 @@
+import time
+from multiprocessing import Pool
 from scrapy.exceptions import NotConfigured
 from scrapy import signals
 from helpers.db_helper import DBHelper
 from scrapy.exceptions import CloseSpider
 
+# TODO Write function which will check spider state in separate process or thread or whatever
+
 
 class SpiderState(object):
     def __init__(self, crawler):
-        self.current_state = 0
+        self.current_state = None
         self.db = DBHelper()
         self.crawler = crawler
 
@@ -16,17 +20,40 @@ class SpiderState(object):
             raise NotConfigured
 
         ext = cls(crawler)
-        # TODO Remove signal connection. Replace it with timer
-        crawler.signals.connect(ext.pause_spider, signal=signals.item_scraped)
+
+        crawler.signals.connect(ext.run_state_checker_process, signal=signals.engine_started)
+
+        # ext.change_spider_state()
+
+        # TODO Maybe use timer
 
         return ext
 
-    def change_spider_state(self):
-        spider_conf = self.db.select_spider_state(1)
-        self.current_state += 1
+    def run_state_checker_process(self):
+        with Pool(processes=1) as pool:
+            pool.apply_async(self.state_checker())
 
-        # print("Id: " + str(model.id))
-        # print("State: " + str(model.state))
+    def state_checker(self):
+        while True:
+            self.change_spider_state()
+            print("LALALALALALa")
+            time.sleep(5)
+
+    def change_spider_state(self):
+        # TODO Pass to select_spider_state conf id
+        spider_conf = self.db.select_spider_state(1)
+
+        print(spider_conf.state)
+
+        if spider_conf.state != self.current_state:
+            self.current_state = spider_conf.state
+
+            if spider_conf.state == 1:
+                self.pause_spider()
+            elif spider_conf.state == 2:
+                self.resume_spider()
+            elif spider_conf.state == 3:
+                self.stop_spider()
 
     def pause_spider(self):
         self.crawler.engine.pause()
@@ -37,7 +64,4 @@ class SpiderState(object):
         print("Spider resumed.")
 
     def stop_spider(self):
-        raise CloseSpider("Spider stopped by userr command.")
-
-        # TODO compare current_state with state from db
-        # TODO skip if states are equal. Do sth if states are different
+        raise CloseSpider("Spider stopped by user command.")

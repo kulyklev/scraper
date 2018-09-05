@@ -19,7 +19,7 @@ depends_on = None
 def upgrade():
     op.add_column(
         'spider_start_config',
-        sa.Column('state', sa.SmallInteger, comment='1 - pause, 2 - stop, other values - run', default=0)
+        sa.Column('state', sa.SmallInteger, comment='1 - pause, 2 - resume, 3 - stop, other values - run', default=0)
     )
     pass
 

@@ -51,6 +51,7 @@ class DBHelper:
         res = None
         try:
             res = self.session.query(StartConfig).filter(StartConfig.id == spider_id).options(load_only("state")).first()
+            self.session.commit()
         except SQLAlchemyError as error:
             self.session.rollback()
             logging.error(error)
