@@ -16,6 +16,14 @@ def run_spider(command):
     sp.wait()
 
 
+# Split list into list of n-size lists
+def chunks(arr, n):
+    # For item i in a range that is a length of l,
+    for i in range(0, len(arr), n):
+        # Create an index range for l of n items:
+        yield arr[i:i + n]
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Runs 'booking-scraper' commands.")
     parser.add_argument("processes", help="The number of processes", type=int)
@@ -46,7 +54,9 @@ if __name__ == "__main__":
         }
         commands.append(d)
 
+    commands_per_process = chunks(commands, 2)
+
     with ThreadPoolExecutor(max_workers=args.processes) as executor:
-        executor.submit(run_spider, commands)
-        # for cmd in commands:
-        #     executor.submit(run_spider, cmd)
+        # executor.submit(run_spider, commands)
+        for cmd in commands_per_process:
+            executor.submit(run_spider, cmd)
