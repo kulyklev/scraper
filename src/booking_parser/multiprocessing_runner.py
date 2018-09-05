@@ -3,6 +3,7 @@ import subprocess
 import sys
 import time
 import argparse
+import random
 from helpers.validator import Validator
 from concurrent.futures import ThreadPoolExecutor
 from helpers.db_helper import DBHelper
@@ -11,7 +12,12 @@ from datetime import datetime
 
 
 def run_spider(command):
-    sp = subprocess.Popen("python runMultipleSpiders.py" + " " + command)
+    filename = str(random.randint(1, 100)) + '.json'
+
+    with open(filename, 'w') as outfile:
+        json.dump(command, outfile)
+
+    sp = subprocess.Popen("python runMultipleSpiders.py" + " " + filename)
     sp.wait()
 
 
@@ -24,8 +30,6 @@ if __name__ == "__main__":
     print("Enter <country>, <city>, <checkin_date>, <checkout_date> and press 'Enter'\n"
           "To finish input enter blank line.")
 
-    validator = Validator()
-
     commands = []
     db = DBHelper()
     start_configs = db.select_run_configs().all()
@@ -33,20 +37,19 @@ if __name__ == "__main__":
         c_in = conf.checkin_date
         c_out = conf.checkout_date
         d = {
-            "ss": conf.city + " " + conf.country,
-            "checkin-monthday": c_in.day,
-            "checkin-month": c_in.month,
-            "checkin-year": c_in.year,
+            "city": conf.city,
+            "country":conf.country,
+            "checkin_monthday": c_in.day,
+            "checkin_month": c_in.month,
+            "checkin_year": c_in.year,
 
-            "checkout-monthday": c_out.day,
-            "checkout-month": c_out.month,
-            "checkout-year": c_out.year,
+            "checkout_monthday": c_out.day,
+            "checkout_month": c_out.month,
+            "checkout_year": c_out.year,
 
-            "use-vpn": conf.vpn,
+            "use_vpn": conf.vpn,
         }
         commands.append(d)
-
-    commands = json.dumps(commands, separators=(',', ':'))
 
     with ThreadPoolExecutor(max_workers=3) as executor:
         executor.submit(run_spider, commands)

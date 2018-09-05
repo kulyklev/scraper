@@ -43,7 +43,7 @@ class BookingSpider(CrawlSpider, DBHelper):
             url="https://www.booking.com/searchresults.ru.html?id=test",
             method="GET",
             formdata={
-                'ss': self.arguments['ss'],
+                'ss': self.arguments['country'] + ' ' + self.arguments['city'],
                 'checkin_monthday': str(self.arguments['checkin_monthday']),
                 'checkin_month': str(self.arguments['checkin_month']),
                 'checkin_year': str(self.arguments['checkin_year']),
@@ -162,7 +162,7 @@ class BookingSpider(CrawlSpider, DBHelper):
 
         if photo_id is not None:
             photo_url = room_details.xpath("//a[@data-photoid='" + photo_id + "']/@href | "
-                                                                                            "//div[@data-photoid='" + photo_id + "']/img/@data-lazy").extract_first()
+                                           "//div[@data-photoid='" + photo_id + "']/img/@data-lazy").extract_first()
         else:
             photo_url = None
 
