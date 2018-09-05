@@ -23,7 +23,8 @@ if validator.validate_input(checkin_date=args.check_in_date, checkout_date=args.
     c_out = datetime.strptime(args.check_out_date, '%Y-%m-%d')
 
     kwargs = {
-        'ss': args.city + ' ' + args.country,
+        'country': args.country,
+        'city': args.city,
         'checkin_monthday': c_in.day,
         'checkin_month': c_in.month,
         'checkin_year': c_in.year,
