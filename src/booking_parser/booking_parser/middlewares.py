@@ -107,6 +107,7 @@ class BookingParserDownloaderMiddleware(object):
                 spider.logger.error("VPN. 429 error")
 
             if spider.vpn_response_error_counter == 10:
+                spider.vpn_response_error_counter = 0
                 self.send_email()
 
         return response
