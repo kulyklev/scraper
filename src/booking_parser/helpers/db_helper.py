@@ -50,8 +50,10 @@ class DBHelper:
     def select_spider_state(self, spider_id):
         res = None
         try:
-            res = self.session.query(StartConfig).filter(StartConfig.id == spider_id).options(load_only("state")).first()
-            self.session.commit()
+            session = Session(self.engine)
+            res = session.query(StartConfig).filter(StartConfig.id == spider_id).options(load_only("state")).first()
+            session.close()
+            # self.session.commit()
         except SQLAlchemyError as error:
             self.session.rollback()
             logging.error(error)
