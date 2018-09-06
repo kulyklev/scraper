@@ -42,8 +42,10 @@ class SpiderState(object):
 
             if spider_conf.state == 1:
                 self.pause_spider()
+                self.run_state_checker()
             elif spider_conf.state == 2:
                 self.resume_spider()
+                self.run_state_checker()
             elif spider_conf.state == 3:
                 self.stop_spider()
             else:

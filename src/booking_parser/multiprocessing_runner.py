@@ -25,13 +25,10 @@ def chunks(arr, n):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Runs 'booking-scraper' commands.")
+    parser = argparse.ArgumentParser(description="Runs 'booking-scraper' with commands set in DB")
     parser.add_argument("processes", help="The number of processes", type=int)
     parser.add_argument("spiders", help="The number of spiders per process", type=int)
     args = parser.parse_args()
-
-    print("Enter <country>, <city>, <checkin_date>, <checkout_date> and press 'Enter'\n"
-          "To finish input enter blank line.")
 
     commands = []
     db = DBHelper()
