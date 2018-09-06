@@ -1,14 +1,9 @@
-import time
-from multiprocessing import Pool
 from threading import Timer
 
 from scrapy.exceptions import NotConfigured
 from scrapy import signals
 from helpers.db_helper import DBHelper
-from scrapy.exceptions import CloseSpider
 
-# TODO Write function which will check spider state in separate process or thread or whatever
-# TODO Maybe use timer
 
 class SpiderState(object):
     def __init__(self, crawler):
@@ -25,7 +20,7 @@ class SpiderState(object):
         ext = cls(crawler)
 
         crawler.signals.connect(ext.run_state_checker, signal=signals.engine_started)
-        crawler.signals.connect(ext.stop_state_checker, signal=signals.engine_stopped)
+        crawler.signals.connect(ext.stop_state_checker, signal=signals.spider_closed)
 
         return ext
 
@@ -36,39 +31,41 @@ class SpiderState(object):
     def stop_state_checker(self):
         self.t.cancel()
 
-    # def state_checker(self):
-    #     while True:
-    #         self.change_spider_state()
-    #         print("LALALALALALa")
-    #         time.sleep(5)
-
     def change_spider_state(self):
-        # TODO Pass to select_spider_state conf id
-        spider_conf = self.db.select_spider_state(1)
+        spider_conf = self.db.select_spider_state(self.crawler.spider.config_id)
 
-        print("\n\n\n\n")
+        print("\n\n")
         print(spider_conf.state)
-        print("\n\n\n\n")
+        print("Conf id: " + str(self.crawler.spider.config_id))
+        print("\n\n")
 
+        # TODO current state could be deleted
         if spider_conf.state != self.current_state:
             self.current_state = spider_conf.state
 
             if spider_conf.state == 1:
                 self.pause_spider()
+                self.run_state_checker()
             elif spider_conf.state == 2:
                 self.resume_spider()
+                self.run_state_checker()
             elif spider_conf.state == 3:
                 self.stop_spider()
-
-        self.run_state_checker()
+            else:
+                self.run_state_checker()
+        else:
+            self.run_state_checker()
 
     def pause_spider(self):
         self.crawler.engine.pause()
+        self.current_state = 1
         print("Spider paused.")
 
     def resume_spider(self):
         self.crawler.engine.unpause()
+        self.current_state = 2
         print("Spider resumed.")
 
     def stop_spider(self):
+        self.current_state = 3
         self.crawler.stop()

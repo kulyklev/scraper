@@ -40,8 +40,9 @@ if __name__ == "__main__":
         c_in = conf.checkin_date
         c_out = conf.checkout_date
         d = {
+            "config_id": conf.id,
             "city": conf.city,
-            "country":conf.country,
+            "country": conf.country,
             "checkin_monthday": c_in.day,
             "checkin_month": c_in.month,
             "checkin_year": c_in.year,

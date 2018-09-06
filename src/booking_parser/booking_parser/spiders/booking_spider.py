@@ -9,6 +9,7 @@ from helpers.db_helper import DBHelper
 
 class BookingSpider(CrawlSpider, DBHelper):
     name = "booking"
+    config_id = None
 
     hdrs = {
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,'
@@ -35,6 +36,7 @@ class BookingSpider(CrawlSpider, DBHelper):
         self.arguments = kwargs.get('kwargs')
         self.use_vpn = self.arguments['use_vpn']
         self.vpn_response_error_counter = 0
+        self.config_id = self.arguments['config_id']
 
         super().__init__(*args, **kwargs)
 
