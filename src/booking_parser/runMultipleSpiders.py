@@ -60,7 +60,13 @@ os.remove(args.filename)
 #     }
 # ]
 
-process = CrawlerProcess(get_project_settings())
+settings = get_project_settings()
+process = CrawlerProcess(settings)
+
 for arg in data:
+    if arg['concurrent_request_amount'] is not None:
+        settings['CONCURRENT_REQUESTS'] = arg['concurrent_request_amount']
+        process = CrawlerProcess(settings)
     process.crawl('booking', kwargs=arg)
+
 process.start()

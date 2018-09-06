@@ -41,6 +41,8 @@ if __name__ == "__main__":
         c_out = conf.checkout_date
         d = {
             "config_id": conf.id,
+            "concurrent_request_amount": conf.concurrent_request_amount,
+
             "city": conf.city,
             "country": conf.country,
             "checkin_monthday": c_in.day,
