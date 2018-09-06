@@ -1,5 +1,4 @@
 from threading import Timer
-
 from scrapy.exceptions import NotConfigured
 from scrapy import signals
 from helpers.db_helper import DBHelper
@@ -34,21 +33,17 @@ class SpiderState(object):
     def change_spider_state(self):
         spider_conf = self.db.select_spider_state(self.crawler.spider.config_id)
 
-        print("\n\n")
-        print(spider_conf.state)
-        print("Conf id: " + str(self.crawler.spider.config_id))
-        print("\n\n")
+        print("\n")
+        print("Spider id: " + str(self.crawler.spider.config_id))
+        print("Spider state: " + str(spider_conf.state))
 
-        # TODO current state could be deleted
         if spider_conf.state != self.current_state:
             self.current_state = spider_conf.state
 
             if spider_conf.state == 1:
                 self.pause_spider()
-                self.run_state_checker()
             elif spider_conf.state == 2:
                 self.resume_spider()
-                self.run_state_checker()
             elif spider_conf.state == 3:
                 self.stop_spider()
             else:

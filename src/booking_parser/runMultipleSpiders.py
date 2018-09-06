@@ -42,6 +42,21 @@ os.remove(args.filename)
 #         "checkout_year": 2018,
 #
 #         "use_vpn": False,
+#     },
+#
+#     {
+#         "config_id": 2,
+#         "city": "Никополь",
+#         "country": "Украина",
+#         "checkin_monthday": 12,
+#         "checkin_month": 12,
+#         "checkin_year": 2018,
+#
+#         "checkout_monthday": 13,
+#         "checkout_month": 12,
+#         "checkout_year": 2018,
+#
+#         "use_vpn": False,
 #     }
 # ]
 

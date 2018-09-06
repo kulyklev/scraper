@@ -55,7 +55,7 @@ if __name__ == "__main__":
         }
         commands.append(d)
 
-    commands_per_process = chunks(commands, 2)
+    commands_per_process = chunks(commands, args.spiders)
 
     with ThreadPoolExecutor(max_workers=args.processes) as executor:
         for cmd in commands_per_process:
