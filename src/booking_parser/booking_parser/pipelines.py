@@ -103,8 +103,7 @@ class RoomTypePipeline(object):
                 )
             room_type_models.append(new_room_type)
 
-            for room in room_type['room_items']:
-                rooms.append(room)
+            rooms = [room for room in room_type['room_items']]
 
         spider.store_room_types(room_type_models)
 
