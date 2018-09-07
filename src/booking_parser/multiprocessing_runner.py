@@ -18,10 +18,7 @@ def run_spider(command):
 
 # Split list into list of n-size lists
 def chunks(arr, n):
-    # For item i in a range that is a length of l,
-    for i in range(0, len(arr), n):
-        # Create an index range for l of n items:
-        yield arr[i:i + n]
+    return [arr[i:i + n] for i in range(0, len(arr), n)]
 
 
 if __name__ == "__main__":
