@@ -24,7 +24,7 @@ class SpiderState(object):
         return ext
 
     def run_state_checker(self):
-        if self.crawler is not None:
+        if self.crawler.crawling is not False:
             self.t = Timer(5.0, self.change_spider_state)
             self.t.start()
 
