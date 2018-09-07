@@ -38,7 +38,7 @@ def upgrade():
     op.alter_column(
         table_name='spider_start_config',
         column_name='checkin_date',
-        existing_type=sa.String(length=100),
+        existing_type=sa.Date,
         existing_nullable=True,
         existing_server_default=None,
         nullable=False,
@@ -47,7 +47,7 @@ def upgrade():
     op.alter_column(
         table_name='spider_start_config',
         column_name='checkout_date',
-        existing_type=sa.String(length=100),
+        existing_type=sa.Date,
         existing_nullable=True,
         existing_server_default=None,
         nullable=False,
@@ -77,7 +77,7 @@ def downgrade():
     op.alter_column(
         table_name='spider_start_config',
         column_name='checkin_date',
-        existing_type=sa.String(length=100),
+        existing_type=sa.Date,
         existing_nullable=False,
         existing_server_default=None,
         nullable=True,
@@ -86,7 +86,7 @@ def downgrade():
     op.alter_column(
         table_name='spider_start_config',
         column_name='checkout_date',
-        existing_type=sa.String(length=100),
+        existing_type=sa.Date,
         existing_nullable=False,
         existing_server_default=None,
         nullable=True,
