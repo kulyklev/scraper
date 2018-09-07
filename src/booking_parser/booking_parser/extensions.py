@@ -24,8 +24,9 @@ class SpiderState(object):
         return ext
 
     def run_state_checker(self):
-        self.t = Timer(5.0, self.change_spider_state)
-        self.t.start()
+        if self.crawler is not None:
+            self.t = Timer(5.0, self.change_spider_state)
+            self.t.start()
 
     def stop_state_checker(self):
         self.t.cancel()
@@ -33,9 +34,8 @@ class SpiderState(object):
     def change_spider_state(self):
         spider_conf = self.db.select_spider_state(self.crawler.spider.config_id)
 
-        print("\n")
-        print("Spider id: " + str(self.crawler.spider.config_id))
-        print("Spider state: " + str(spider_conf.state))
+        self.crawler.spider.logger.info(
+            "\nSpider id: {0}\nSpider state: {1}".format(str(self.crawler.spider.config_id), str(spider_conf.state)))
 
         if spider_conf.state != self.current_state:
             self.current_state = spider_conf.state

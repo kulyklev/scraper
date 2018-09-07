@@ -36,7 +36,7 @@ class BookingSpider(CrawlSpider, DBHelper):
         self.arguments = kwargs.get('kwargs')
         self.use_vpn = self.arguments['use_vpn']
         self.vpn_response_error_counter = 0
-        self.config_id = self.arguments['config_id']
+        self.config_id = self.arguments.get('config_id', None)
 
         super().__init__(*args, **kwargs)
 
