@@ -42,14 +42,11 @@ class BookingSpider(CrawlSpider, DBHelper):
         super().__init__(*args, **kwargs)
 
     def start_requests(self):
-        checkin_date = self.arguments['check_in_date'] + timedelta(days=1)
-        checkout_date = datetime.strptime(checkin_date, '%Y-%m-%d')
-        url = self.arguments['hotel_link'] + '?' + 'checkin=' + self.arguments['check_in_date'] + ';checkout=' + checkout_date
+        checkin_date = self.arguments['check_in_date']
+        checkout_date = datetime.strptime(checkin_date, '%Y-%m-%d') + timedelta(days=1)
+        url = self.arguments['hotel_link'] + '?' + 'checkin=' + self.arguments['check_in_date'] + ';checkout=' + str(checkout_date)
 
-        return scrapy.Request(url=url, callback=self.parse_hotel, headers=self.hdrs)
-
-        # for url in urls:
-        #     yield scrapy.Request(url=url, callback=self.parse_hotel)
+        return [scrapy.Request(url=url, callback=self.parse_hotel, headers=self.hdrs)]
 
         # return [scrapy.FormRequest(
         #     url="https://www.booking.com/searchresults.ru.html?id=test",
@@ -82,6 +79,12 @@ class BookingSpider(CrawlSpider, DBHelper):
                                  headers=self.hdrs)
 
     def parse_hotel(self, response):
+        page = response.url.split("/")[-2]
+        filename = 'quotes-%s.html' % page
+        with open(filename, 'wb') as f:
+            f.write(response.body)
+        self.log('Saved file %s' % filename)
+
         hotel = HotelItem()
         hotel['hotel_id'] = response.xpath("//form[@id='top-book']/input[@name='hotel_id']/@value").extract_first()
         hotel['url'] = response.url[:response.url.find('?')]

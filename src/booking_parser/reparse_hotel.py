@@ -16,7 +16,7 @@ parser.add_argument("-r", "--requests", help="The maximum number of concurrent r
 args = parser.parse_args()
 kwargs = {
         'hotel_link': args.hotel_link,
-        'city': args.check_in_date,
+        'check_in_date': args.check_in_date,
 
         'use_vpn': args.vpn,
     }
