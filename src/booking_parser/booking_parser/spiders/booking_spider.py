@@ -5,6 +5,7 @@ from booking_parser.items import HotelItem
 from booking_parser.items import RoomTypeItem
 from booking_parser.items import RoomItem
 from helpers.db_helper import DBHelper
+from datetime import datetime, timedelta
 
 
 class BookingSpider(CrawlSpider, DBHelper):
@@ -25,7 +26,7 @@ class BookingSpider(CrawlSpider, DBHelper):
 
     allowed_domains = ['www.booking.com']
     start_urls = [
-        # 'https://www.booking.com/hotel/pl/zajazd-grosik-lodz.ru.html?label=gen173nr-1FCAQoggJCFXNlYXJjaF_FgsOzZMW6IHBvbHNrYUghWARo6QGIAQGYASHCAQp3aW5kb3dzIDEwyAEM2AEB6AEB-AEDkgIBeagCAw;sid=09482b4bc8e1a6fbe110a8aaebcfbc0c;all_sr_blocks=30814706_89078011_2_2_0;checkin=2018-12-12;checkout=2018-12-13;dest_id=-513922;dest_type=city;dist=0;hapos=84;highlighted_blocks=30814706_89078011_2_2_0;hpos=9;room1=A%2CA;sb_price_type=total;srepoch=1535699480;srfid=2892bc70925cf7717d3609a6bb7436f9899e2fb8X84;srpvid=ca72328b6b0c01f5;type=total;ucfs=1&',
+
     ]
 
     def __init__(self, *args, **kwargs):
@@ -41,22 +42,31 @@ class BookingSpider(CrawlSpider, DBHelper):
         super().__init__(*args, **kwargs)
 
     def start_requests(self):
-        return [scrapy.FormRequest(
-            url="https://www.booking.com/searchresults.ru.html?id=test",
-            method="GET",
-            formdata={
-                'ss': self.arguments['country'] + ' ' + self.arguments['city'],
-                'checkin_monthday': str(self.arguments['checkin_monthday']),
-                'checkin_month': str(self.arguments['checkin_month']),
-                'checkin_year': str(self.arguments['checkin_year']),
+        checkin_date = self.arguments['check_in_date'] + timedelta(days=1)
+        checkout_date = datetime.strptime(checkin_date, '%Y-%m-%d')
+        url = self.arguments['hotel_link'] + '?' + 'checkin=' + self.arguments['check_in_date'] + ';checkout=' + checkout_date
 
-                'checkout_monthday': str(self.arguments['checkout_monthday']),
-                'checkout_month': str(self.arguments['checkout_month']),
-                'checkout_year': str(self.arguments['checkout_year']),
-            },
-            callback=self.parse,
-            headers=self.hdrs
-        )]
+        return scrapy.Request(url=url, callback=self.parse_hotel, headers=self.hdrs)
+
+        # for url in urls:
+        #     yield scrapy.Request(url=url, callback=self.parse_hotel)
+
+        # return [scrapy.FormRequest(
+        #     url="https://www.booking.com/searchresults.ru.html?id=test",
+        #     method="GET",
+        #     formdata={
+        #         'ss': self.arguments['country'] + ' ' + self.arguments['city'],
+        #         'checkin_monthday': str(self.arguments['checkin_monthday']),
+        #         'checkin_month': str(self.arguments['checkin_month']),
+        #         'checkin_year': str(self.arguments['checkin_year']),
+        #
+        #         'checkout_monthday': str(self.arguments['checkout_monthday']),
+        #         'checkout_month': str(self.arguments['checkout_month']),
+        #         'checkout_year': str(self.arguments['checkout_year']),
+        #     },
+        #     callback=self.parse,
+        #     headers=self.hdrs
+        # )]
 
     def parse(self, response):
         for link in response.xpath("//div[@id='hotellist_inner']//div[@class='sr-cta-button-row']/a"):
@@ -74,8 +84,7 @@ class BookingSpider(CrawlSpider, DBHelper):
     def parse_hotel(self, response):
         hotel = HotelItem()
         hotel['hotel_id'] = response.xpath("//form[@id='top-book']/input[@name='hotel_id']/@value").extract_first()
-        # hotel['url'] = response.url[:response.url.find('?')]
-        hotel['url'] = response.url
+        hotel['url'] = response.url[:response.url.find('?')]
         hotel['name'] = response.xpath("//h2[@class='hp__hotel-name']/text()").extract_first().strip()
         hotel['description'] = " ".join(response.xpath("//div[@id='summary']/p/text()").extract()).strip()
         hotel['address'] = response.xpath(
