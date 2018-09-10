@@ -7,6 +7,7 @@
 import datetime
 import pprint
 import json
+import pika
 
 from models.hotel import Hotel
 from models.room_type import RoomType
@@ -180,8 +181,10 @@ class HotelPipelineJSON(object):
             'room_types': self.get_room_types(item['rooms'], item['images'])
         }
 
-        with open(item['name'] + '.json', 'w') as outfile:
-            json.dump(hotel, outfile)
+        # with open(item['name'] + '.json', 'w') as outfile:
+        #     json.dump(hotel, outfile)
+
+        self.sendToRabbit(hotel)
 
         return item
 
@@ -230,3 +233,14 @@ class HotelPipelineJSON(object):
             room_models.append(new_room)
 
         return room_models
+
+    def sendToRabbit(self, hotel):
+        connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost', port=5672))
+        channel = connection.channel()
+
+        channel.queue_declare(queue='save_data_queue', passive=False, durable=True, exclusive=False, auto_delete=False)
+
+        message = json.dumps(hotel)
+        channel.basic_publish(body=message, exchange='', routing_key='save_data_queue')
+        print(" [x] Sent data to RabbitMQ")
+        connection.close()
