@@ -181,9 +181,6 @@ class HotelPipelineJSON(object):
             'room_types': self.get_room_types(item['rooms'], item['images'])
         }
 
-        # with open(item['name'] + '.json', 'w') as outfile:
-        #     json.dump(hotel, outfile)
-
         self.sendToRabbit(hotel)
 
         return item
