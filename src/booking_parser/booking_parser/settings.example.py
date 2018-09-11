@@ -14,6 +14,8 @@ BOT_NAME = 'booking_parser'
 SPIDER_MODULES = ['booking_parser.spiders']
 NEWSPIDER_MODULE = 'booking_parser.spiders'
 
+SPIDER_STATE_EXT_ENABLED = False
+ENDLESS_SPIDER_EXT_ENABLED = False
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'booking_parser (+http://www.yourdomain.com)'
@@ -58,9 +60,11 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html
-#EXTENSIONS = {
-#    'scrapy.extensions.telnet.TelnetConsole': None,
-#}
+EXTENSIONS = {
+   # 'scrapy.extensions.telnet.TelnetConsole': None,
+   # 'booking_parser.extensions.SpiderState': None,
+   # 'booking_parser.extensions.EndlessSpider': None,
+}
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
