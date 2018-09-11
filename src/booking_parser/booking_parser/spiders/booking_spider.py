@@ -44,7 +44,7 @@ class BookingSpider(CrawlSpider, DBHelper):
     def start_requests(self):
         checkin_date = self.arguments['check_in_date']
         checkout_date = datetime.strptime(checkin_date, '%Y-%m-%d') + timedelta(days=1)
-        url = self.arguments['hotel_link'] + '?' + 'checkin=' + self.arguments['check_in_date'] + ';checkout=' + str(checkout_date)
+        url = self.arguments['hotel_link'] + '?' + 'checkin=' + self.arguments['check_in_date'] + ';checkout=' + str(checkout_date.date())
 
         return [scrapy.Request(url=url, callback=self.parse_hotel, headers=self.hdrs)]
 
