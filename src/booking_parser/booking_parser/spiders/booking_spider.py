@@ -79,12 +79,6 @@ class BookingSpider(CrawlSpider, DBHelper):
                                  headers=self.hdrs)
 
     def parse_hotel(self, response):
-        page = response.url.split("/")[-2]
-        filename = 'quotes-%s.html' % page
-        with open(filename, 'wb') as f:
-            f.write(response.body)
-        self.log('Saved file %s' % filename)
-
         hotel = HotelItem()
         hotel['hotel_id'] = response.xpath("//form[@id='top-book']/input[@name='hotel_id']/@value").extract_first()
         hotel['url'] = response.url[:response.url.find('?')]
