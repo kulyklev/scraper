@@ -64,7 +64,6 @@ class HotelPipeline(object):
             description=item['description'],
             rate=item['rate'],
             photo=img['path'],
-            # stars=item['stars'],
         )
         spider.store_hotel(hotel)
 
@@ -181,7 +180,7 @@ class HotelPipelineJSON(object):
             'room_types': self.get_room_types(item['rooms'], item['images'])
         }
 
-        self.sendToRabbit(hotel)
+        self.sendToRabbit(hotel, spider)
 
         return item
 
@@ -231,7 +230,7 @@ class HotelPipelineJSON(object):
 
         return room_models
 
-    def sendToRabbit(self, hotel):
+    def sendToRabbit(self, hotel, spider):
         connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost', port=5672))
         channel = connection.channel()
 
@@ -239,5 +238,5 @@ class HotelPipelineJSON(object):
 
         message = json.dumps(hotel)
         channel.basic_publish(body=message, exchange='', routing_key='save_data_queue')
-        print(" [x] Sent data to RabbitMQ")
+        spider.logger.info(" [x] Sent data to RabbitMQ")
         connection.close()

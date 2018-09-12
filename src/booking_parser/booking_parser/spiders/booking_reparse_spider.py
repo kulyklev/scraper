@@ -8,7 +8,7 @@ from helpers.db_helper import DBHelper
 
 
 class BookingSpider(CrawlSpider, DBHelper):
-    name = "booking"
+    name = "booking_reparse"
     config_id = None
 
     hdrs = {
@@ -33,30 +33,9 @@ class BookingSpider(CrawlSpider, DBHelper):
         console.setLevel(logging.DEBUG)
         logging.getLogger('').addHandler(console)
 
-        self.arguments = kwargs.get('kwargs')
-        self.use_vpn = self.arguments['use_vpn']
-        self.vpn_response_error_counter = 0
-        self.config_id = self.arguments.get('config_id', None)
+        self.use_vpn = False
 
         super().__init__(*args, **kwargs)
-
-    def start_requests(self):
-        return [scrapy.FormRequest(
-            url="https://www.booking.com/searchresults.ru.html?id=test",
-            method="GET",
-            formdata={
-                'ss': self.arguments['country'] + ' ' + self.arguments['city'],
-                'checkin_monthday': str(self.arguments['checkin_monthday']),
-                'checkin_month': str(self.arguments['checkin_month']),
-                'checkin_year': str(self.arguments['checkin_year']),
-
-                'checkout_monthday': str(self.arguments['checkout_monthday']),
-                'checkout_month': str(self.arguments['checkout_month']),
-                'checkout_year': str(self.arguments['checkout_year']),
-            },
-            callback=self.parse,
-            headers=self.hdrs
-        )]
 
     def parse(self, response):
         for link in response.xpath("//div[@id='hotellist_inner']//div[@class='sr-cta-button-row']/a"):
