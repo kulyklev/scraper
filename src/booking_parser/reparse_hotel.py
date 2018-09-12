@@ -30,6 +30,10 @@ from helpers.validator import Validator
 # else:
 #     process = CrawlerProcess(get_project_settings())
 
-process = CrawlerProcess(get_project_settings())
-process.crawl('booking')
+settings = get_project_settings()
+
+settings['ENDLESS_SPIDER_EXT_ENABLED'] = True
+
+process = CrawlerProcess(settings)
+process.crawl("booking_reparse")
 process.start()
