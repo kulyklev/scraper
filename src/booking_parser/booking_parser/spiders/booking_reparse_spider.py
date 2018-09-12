@@ -5,7 +5,6 @@ from booking_parser.items import HotelItem
 from booking_parser.items import RoomTypeItem
 from booking_parser.items import RoomItem
 from helpers.db_helper import DBHelper
-from datetime import datetime, timedelta
 
 
 class BookingSpider(CrawlSpider, DBHelper):
