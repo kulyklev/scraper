@@ -107,7 +107,6 @@ class EndlessSpider(object):
 
         if data:
             data = data.split()
-            self.crawler.spider.logger.critical(data)
             link = data[0].decode("utf-8")
             checkin_date = data[1].decode("utf-8")
             checkout_date = datetime.strptime(checkin_date, '%Y-%m-%d') + timedelta(days=7)
