@@ -20,8 +20,7 @@ class HotelPipeline(object):
 
     def close_spider(self, spider):
         spider.logger.log(45, spider.crawler.stats.get_stats())
-        # TODO Uncomment
-        # self.send_email(spider.crawler.stats.get_stats())
+        self.send_email(spider.crawler.stats.get_stats())
 
     def send_email(self, stats):
         intro = "Summary stats from Scrapy spider: \n\n"
@@ -65,7 +64,6 @@ class HotelPipeline(object):
             description=item['description'],
             rate=item['rate'],
             photo=img['path'],
-            # stars=item['stars'],
         )
         spider.store_hotel(hotel)
 
@@ -135,8 +133,7 @@ class HotelPipelineJSON(object):
 
     def close_spider(self, spider):
         spider.logger.log(45, spider.crawler.stats.get_stats())
-        # TODO Uncomment
-        # self.send_email(spider.crawler.stats.get_stats())
+        self.send_email(spider.crawler.stats.get_stats())
 
     def send_email(self, stats):
         intro = "Summary stats from Scrapy spider: \n\n"

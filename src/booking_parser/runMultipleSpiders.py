@@ -13,53 +13,6 @@ with open(args.filename) as f:
     data = json.load(f)
 os.remove(args.filename)
 
-# data = [
-#     {
-#         "config_id": 1,
-#         "city": "Los-Angeles",
-#         "country": "USA",
-#         "checkin_monthday": 12,
-#         "checkin_month": 12,
-#         "checkin_year": 2018,
-#
-#         "checkout_monthday": 13,
-#         "checkout_month": 12,
-#         "checkout_year": 2018,
-#
-#         "use_vpn": False,
-#     },
-#
-#     {
-#         "config_id": 2,
-#         "city": "Las-Vegas",
-#         "country": "USA",
-#         "checkin_monthday": 12,
-#         "checkin_month": 12,
-#         "checkin_year": 2018,
-#
-#         "checkout_monthday": 13,
-#         "checkout_month": 12,
-#         "checkout_year": 2018,
-#
-#         "use_vpn": False,
-#     },
-#
-#     {
-#         "config_id": 2,
-#         "city": "Никополь",
-#         "country": "Украина",
-#         "checkin_monthday": 12,
-#         "checkin_month": 12,
-#         "checkin_year": 2018,
-#
-#         "checkout_monthday": 13,
-#         "checkout_month": 12,
-#         "checkout_year": 2018,
-#
-#         "use_vpn": False,
-#     }
-# ]
-
 settings = get_project_settings()
 process = CrawlerProcess(settings)
 
