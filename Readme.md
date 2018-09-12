@@ -77,6 +77,10 @@ Column **state** determine the state of spider.
 - 3 - stop
 - other values work like resume
 
+_**Reparsing hotels**_  
+Reparsing performs by reparse_hotel.py script.
+It just starts "booking_reparse_spider.py" and enables extension "EndlessSpider" which listen to RabbitMQ queue and make request for spider
+
 
 
 
